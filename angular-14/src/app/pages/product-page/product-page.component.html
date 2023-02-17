@@ -1,0 +1,46 @@
+<h1 class="font-bold mb-2 text-center">{{ title | titlecase }}</h1>
+<!-- <app-product [products]="products[0]"></app-product>
+  <app-product [products]="products[1]"></app-product> -->
+
+<!-- <p *ngIf="loading" class="text-center text-lg">Loading...</p> -->
+
+<input
+  type="text"
+  class="mb-2 border py-2 px-4 w-full"
+  placeholder="Tap for filter..."
+  [(ngModel)]="term"
+/>
+
+<div *ngIf="loading" class="lds-roller">
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+
+<!-- <app-product
+    *ngFor="let product of products"
+    [products]="product"
+  ></app-product> -->
+<!-- <div *ngIf="products$ | async as products"> -->
+<div *ngIf="productsService.products">
+  <app-product
+    *ngFor="let product of productsService.products | filterProducts: term"
+    [products]="product"
+  ></app-product>
+</div>
+
+<app-modal *ngIf="modalService.isVisible$ | async" title="Create new product">
+  <app-create-product></app-create-product>
+</app-modal>
+
+<button
+  class="rounded-full bg-red-600 text-white fixed right-5 bottom-5 py-2 px-4"
+  (click)="modalService.open()"
+>
+  Add
+</button>

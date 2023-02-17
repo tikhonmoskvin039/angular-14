@@ -1,0 +1,28 @@
+<div class="py-4 px-6 border rounded flex items-center flex-col mb-2">
+  <img [src]="products.image" [alt]="products.title" class="w-1/6 mb-2" />
+  <h2 class="mb-2 text-md text-center">{{ products.title }}</h2>
+  <p class="font-bold">Price: {{ products.price | currency: 'EUR' }}</p>
+
+  <button
+    class="border py-2 px-4 rounded"
+    [ngClass]="{
+      'bg-yellow-400': !details,
+      'bg-blue-400': details
+    }"
+    (click)="details = !details"
+  >
+    <!-- важно!!!!! в классе Ng последний элемент не должен содержать висячую запятую -->
+    {{ details ? 'Hide' : 'Show' }}
+    Details
+  </button>
+
+  <div *ngIf="details">
+    <p>{{ products.description }}</p>
+    <p class="text-center">
+      Rate:
+      <span [ngStyle]="{ fontWeight: 'bold' }"
+        >{{ products.rating.rate | number:'1.2-4' }}
+      </span>
+    </p>
+  </div>
+</div>
